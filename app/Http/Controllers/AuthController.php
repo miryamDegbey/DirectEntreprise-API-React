@@ -30,7 +30,7 @@ class AuthController extends Controller
             'password' => $request->password,
         ];
 
-        DB::beginTransaction();
+        DB::beginTransaction();//debute la communication avec la base de donnée
         try {
             $user = $this->authInterface->Login($data);
 
@@ -60,7 +60,7 @@ class AuthController extends Controller
                 200
             );
         } catch (\Throwable $th) {
-            // return $th;
+            return $th;
             return ApiResponse::rollback($th);
         }
     }

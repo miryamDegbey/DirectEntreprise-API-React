@@ -28,7 +28,7 @@ class OtpCodeEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Code de confirmation pour valider votre inscription sur FATE Companie.sa',
+            subject: 'Code de confirmation pour valider votre inscription sur ',
             from: new Address('accounts@unetah.net', 'FATE Companie.sa')
         );
     }
@@ -39,7 +39,7 @@ class OtpCodeEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mails.otp_code',
+            view: 'mails.OtpCode',
             with: [
                 'name' => $this->name,
                 'email' => $this->email,

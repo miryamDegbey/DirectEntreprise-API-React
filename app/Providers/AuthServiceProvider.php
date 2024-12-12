@@ -13,7 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app-> bind(AuthInterface::class, AuthRepository::class);
+        $this->app-> bind(AuthInterface::class, AuthRepository::class);//lier l'interface au repositorie
     }
 
     /**

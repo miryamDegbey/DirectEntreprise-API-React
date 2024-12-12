@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Interfaces\AuthInterface;
 use App\Mail\OtpCodeEmail;
 use App\Models\OtpCode;
 use App\Models\User;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Symfony\Component\Mailer\Mailer;
 
-class AuthRepository
+class AuthRepository implements AuthInterface
 {
     /**
      * Create a new class instance.
@@ -23,16 +24,16 @@ class AuthRepository
 
         $otp_code = [
             'email' => $data['email'],
-            'code' => rand(111111, 999999),
+            'code' => 1234
         ];
-
-        OtpCode::where('email', $data['email'])->delete();
         OtpCode::create($otp_code);
-        Mail::to($data['email'])->send(new OtpCodeEmail(
-            $data['name'],
-            $data['email'],
-            $otp_code['code']
-        ));
+
+        // OtpCode::where('email', $data['email'])->delete();
+        // Mail::to($data['email'])->send(new OtpCodeEmail(
+        //     $data['name'],
+        //     $data['email'],
+        //     $otp_code['code']
+        // ));
 
         return $user;
     }
@@ -58,6 +59,7 @@ class AuthRepository
         $otp_code = OtpCode::where('email', $data['email'])->first();
 
         if (!$otp_code)
+        
             return false;
 
         if (Hash::check($data['code'], $otp_code['code'])) {

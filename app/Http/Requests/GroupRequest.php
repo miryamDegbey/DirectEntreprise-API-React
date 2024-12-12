@@ -11,7 +11,7 @@ class GroupRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,19 @@ class GroupRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            
+            'name' => 'required|string',
+            'image' => 'nullable|string',
+            'actuality' => 'nullable|string',
+            'user_id' => 'required|integer',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Le nom du groupe est obligatoire.',
+            
         ];
     }
 }
